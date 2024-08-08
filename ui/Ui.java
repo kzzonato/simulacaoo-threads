@@ -42,7 +42,7 @@ public class Ui {
                         }
                     }
                     case 2 -> {
-                        String content = "Hello World 2";
+                        String content = "Hello World [edited]";
                         boolean isEdited = FilesUtil.saveContent(content);
                         if(isEdited){
                             System.out.println("content saved");

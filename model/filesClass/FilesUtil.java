@@ -40,27 +40,26 @@ public class FilesUtil {
 
     public static void readFile(List<File> files){
 
-        try(
-                BufferedReader bf = new BufferedReader(new FileReader(files))
-
-                ){
-
-
-        }
-
-
-
-    }
-
-    private static void separatorFile(List<File> files){
-
         for(File file : files){
+            try(
+                    BufferedReader bf = new BufferedReader(new FileReader(file))
+            ){
+                String line;
+                while ((line = bf.readLine()) != null){
+                    System.out.println(line);
+                }
 
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
 
 
-    }
 
+
+
+
+    }
 
 
     private static String dateFormated(){
