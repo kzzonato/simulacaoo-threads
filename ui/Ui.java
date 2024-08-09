@@ -21,8 +21,8 @@ public class Ui {
         int choose = 0;
         while (loop){
             try {
-                System.out.println("Enter your Option: ");
-                System.out.println("1-Create file\n2-Edit file\n3-Save file\n4-Download file\n5-Get file\n6-Get all files");
+                System.out.println("\nEnter your Option: ");
+                System.out.println("1-Create file\n2-Edit file\n3-Download file\n4-Get file\n5-Get all files");
                 choose = scanner.nextInt();
 
                 Thread tDownload = new Thread(new Download());
@@ -51,13 +51,14 @@ public class Ui {
                         }
                     }
                     case 3 -> {
-
-                    }
-                    case 4 -> {
                         tDownload.start();
                     }
+                    case 4 -> {
+                        // fazer dps do id completo
+                    }
                     case 5 -> {
-
+                        System.out.println("Reading file...");
+                        FilesUtil.readAllFiles();
                     }
                     default -> {
                         throw new Exception("Invalid option! Try using 1,2,3 or 4.");

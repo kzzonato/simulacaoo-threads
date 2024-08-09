@@ -1,19 +1,18 @@
 package org.example.test.threads.simulacao.model.filesClass;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 public class FilesSaved {
 
-    private static List<File> files = new ArrayList<>();
+    private static String filePath = "/src/main/java/org/example/test/threads/simulacao/model/filesClass/filesSaved";
+    private static File folder = new File(filePath);
+    private static File[] listOfFiles = folder.listFiles((dir, name) -> name.endsWith(".txt"));
 
-    public static List<File> getFiles() {
-        return files;
+    public static File[] getFiles() {
+        return listOfFiles;
     }
 
     public static void saveFile(File file){
-        files.add(file);
         System.out.println("files saved");
     }
 

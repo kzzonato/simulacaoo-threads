@@ -4,21 +4,32 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
+import java.util.Arrays;
+import java.util.Optional;
+
+
 
 public class FilesUtil {
 
-    private static String fileName = "/home/joao.siqueira/IdeaProjects/threadsTest/src/main/java/org/example/test/threads/simulacao/model/filesClass/filesSaved/newFile.txt";
+    private static int idFile=0;
+    private static String fileName = "src/main/java/org/example/test/threads/simulacao/model/filesClass/filesSaved/"+(idFile++)+".txt";
 
     public static boolean createFile(){
-        File file = new File(fileName);
-        try {
-            boolean isCreated = file.createNewFile();
-            FilesSaved.saveFile(file);
-            return isCreated;
-        } catch (IOException e) {
-            throw new RuntimeException("Error trying create new file.");
+        File optionalFile = new File(fileName);
+
+        if(optionalFile.exists()){
+            fileName = "src/main/java/org/example/test/threads/simulacao/model/filesClass/filesSaved/"+(idFile++)+".txt";
+            File file = new File(fileName);
+            try {
+                boolean isCreated = file.createNewFile();
+                FilesSaved.saveFile(file);
+                return isCreated;
+            } catch (IOException e) {
+                throw new RuntimeException("Error trying create new file.");
+            }
         }
+
+        return false;
     }
 
     public static boolean saveContent(String content){
@@ -38,8 +49,9 @@ public class FilesUtil {
         }
     }
 
-    public static void readFile(List<File> files){
+    public static void readAllFiles(){
 
+        File[] files =  FilesSaved.getFiles();
         for(File file : files){
             try(
                     BufferedReader bf = new BufferedReader(new FileReader(file))
@@ -53,13 +65,18 @@ public class FilesUtil {
                 throw new RuntimeException(e);
             }
         }
+    }
 
+    public static void readFile(String fileName){
 
-
-
+        File[] files = FilesSaved.getFiles();
+        Optional<File> optionalFile = Arrays.stream(files).filter(file -> file.getName().equals(fileName)).findFirst();
+        
 
 
     }
+
+
 
 
     private static String dateFormated(){
